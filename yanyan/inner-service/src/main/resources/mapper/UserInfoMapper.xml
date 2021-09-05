@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.xiguapi.innerservice.dao.UserInfoDao" >
+    <resultMap id="BaseResultMap" type="net.xiguapi.innerservice.model.UserInfo" >
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="NUMERIC" />
+    </resultMap>
+
+    <select id="getUserInfo" resultType="net.xiguapi.innerservice.model.UserInfo">
+        SELECT
+            name, age
+        FROM
+            user_info t
+        WHERE
+            t.name = #{name}
+    </select>
+
+</mapper>

@@ -1,0 +1,34 @@
+###服务注册地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+###api网关端口号
+server:
+  port: 8001
+###网关名称
+spring:
+  ###注意编码，全站api和前端全部要使用utf-8编码。zuul中强制编码为utf-8
+  ###文件上传中文名乱码问题解决
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  application:
+    name: zuul
+
+zuul:
+  ###设置header忽略，增加zuul前缀后会导致header中出现Access-Control-Allow-Credentials等属性重复的异常
+  sensitiveHeaders: Authorization
+  ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Vary,X-Frame-Options
+  routes:
+    ###定义转发服务规则
+    service1:
+      path: /service1/**   #请求路径中含有api-hello,都会转发到hello-service服务
+      ###服务别名 zuul网关默认整合ribbon 自动实现负载均衡轮训效果
+      serviceId: service1
+    service2:
+      path: /service2/**   #请求路径中含有api-hello,都会转发到hello-service服务
+      ###服务别名 zuul网关默认整合ribbon 自动实现负载均衡轮训效果
+      serviceId: service2
